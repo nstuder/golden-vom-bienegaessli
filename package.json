@@ -1,7 +1,7 @@
 {
   "name": "golden-vom-bienegaessli",
   "version": "1.0.0",
-  "description": "Website template for Payload",
+  "description": "Golden vom bienegaessli",
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -30,6 +30,7 @@
     "@payloadcms/plugin-search": "3.39.1",
     "@payloadcms/plugin-seo": "3.39.1",
     "@payloadcms/richtext-lexical": "3.39.1",
+    "@payloadcms/translations": "3.40.0",
     "@payloadcms/ui": "3.39.1",
     "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-label": "^2.0.2",

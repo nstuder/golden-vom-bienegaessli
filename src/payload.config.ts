@@ -6,35 +6,29 @@ import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
-import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
-import { Posts } from './collections/Posts'
+import { Dogs } from './collections/Dogs'
 import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
+import { de } from '@payloadcms/translations/languages/de'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
-    components: {
-      // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below and the import `BeforeLogin` statement on line 15.
-      beforeLogin: ['@/components/BeforeLogin'],
-      // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below and the import `BeforeDashboard` statement on line 15.
-      beforeDashboard: ['@/components/BeforeDashboard'],
-    },
     importMap: {
       baseDir: path.resolve(dirname),
     },
     user: Users.slug,
     livePreview: {
+      url: 'http://localhost:3000',
+      collections: ['pages', 'dogs'],
       breakpoints: [
         {
           label: 'Mobile',
@@ -62,7 +56,10 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  collections: [Pages, Posts, Media, Categories, Users],
+  i18n: {
+    supportedLanguages: { de },
+  },
+  collections: [Pages, Dogs, Media, Users],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins: [

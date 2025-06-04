@@ -7,7 +7,7 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 
-import { linkGroup } from '@/fields/linkGroup'
+import { carouselFields } from '@/blocks/Carousel/config'
 
 export const hero: Field = {
   name: 'hero',
@@ -20,19 +20,19 @@ export const hero: Field = {
       label: 'Type',
       options: [
         {
-          label: 'None',
+          label: 'Kein Hero',
           value: 'none',
         },
         {
-          label: 'High Impact',
+          label: 'Mit Karussell',
           value: 'highImpact',
         },
         {
-          label: 'Medium Impact',
+          label: 'Mit Bild',
           value: 'mediumImpact',
         },
         {
-          label: 'Low Impact',
+          label: 'Nur Text',
           value: 'lowImpact',
         },
       ],
@@ -53,16 +53,19 @@ export const hero: Field = {
       }),
       label: false,
     },
-    linkGroup({
-      overrides: {
-        maxRows: 2,
+    {
+      name: 'carousel',
+      type: 'group',
+      fields: carouselFields,
+      admin: {
+        condition: (_, { type } = {}) => ['highImpact'].includes(type),
       },
-    }),
+    },
     {
       name: 'media',
       type: 'upload',
       admin: {
-        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact'].includes(type),
+        condition: (_, { type } = {}) => ['mediumImpact'].includes(type),
       },
       relationTo: 'media',
       required: true,
