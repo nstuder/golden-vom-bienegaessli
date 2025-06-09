@@ -7,7 +7,7 @@ export async function Footer() {
   const footerData: Footer = await getCachedGlobal('footer', 1)()
 
   return (
-    <footer className="mt-auto border-t border-border bg-primary dark:bg-card text-white">
+    <footer className="mt-auto border-t border-border bg-primary text-black">
       <div className="container py-8 gap-8 flex flex-row md:flex-row md:justify-between">
         <div className={'text-center'}>{footerData.caption}</div>
       </div>

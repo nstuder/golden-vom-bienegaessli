@@ -1,9 +1,9 @@
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import {
   DefaultNodeTypes,
+  type DefaultTypedEditorState,
   SerializedBlockNode,
   SerializedLinkNode,
-  type DefaultTypedEditorState,
 } from '@payloadcms/richtext-lexical'
 import {
   JSXConvertersFunction,
@@ -11,14 +11,10 @@ import {
   RichText as ConvertRichText,
 } from '@payloadcms/richtext-lexical/react'
 
-import type {
-  MediaBlock as MediaBlockProps,
-} from '@/payload-types'
+import type { MediaBlock as MediaBlockProps } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 
-type NodeTypes =
-  | DefaultNodeTypes
-  | SerializedBlockNode<MediaBlockProps>
+type NodeTypes = DefaultNodeTypes | SerializedBlockNode<MediaBlockProps>
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!
@@ -62,7 +58,7 @@ export default function RichText(props: Props) {
         {
           container: enableGutter,
           'max-w-none': !enableGutter,
-          'mx-auto prose md:prose-md dark:prose-invert': enableProse,
+          'mx-auto prose md:prose-md': enableProse,
         },
         className,
       )}

@@ -7,7 +7,7 @@ import RichText from '@/components/RichText'
 
 export const HighImpactHero: React.FC<Page['hero']> = ({ richText, carousel }) => {
   return (
-    <div className="flex items-center justify-center text-white" data-theme="dark">
+    <div className="flex items-center justify-center text-white">
       <div className="select-none w-full relative">
         {carousel && (
           <CarouselBlock
