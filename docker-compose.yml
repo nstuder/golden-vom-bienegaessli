@@ -1,31 +1,50 @@
-version: '3'
-
 services:
-  payload:
-    image: node:18-alpine
+  bienegaessli-cms:
+    container_name: bienegaessli-cms
+    image: bienegaessli-payload-cms
+    build: .
     ports:
       - '3000:3000'
     volumes:
-      - .:/home/node/app
-      - node_modules:/home/node/app/node_modules
-    working_dir: /home/node/app/
-    command: sh -c "yarn install && yarn dev"
+      - ./media:/home/node/media
     depends_on:
-      - mongo
+      - bienegaessli-mongo
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.lovely.rule=Host(`bienegaessli.lovely-golden.de`)'
+      - 'traefik.http.routers.lovely.entrypoints=web, websecure'
+      - 'traefik.http.routers.lovely.tls=true'
+      - 'traefik.http.routers.lovely.tls.certresolver=myresolver'
+      - 'traefik.http.middlewares.lovely.compress=true'
+      - 'traefik.http.middlewares.lovely.plugin.httpCache.maxTtl=300'
+    networks:
+      - bienegaessli_network
+      - traefik
+    environment:
+      DATABASE_URI: "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@bienegaessli-mongo:27017/${MONGO_DATABASE}?authSource=admin"
     env_file:
       - .env
 
-  mongo:
-    image: mongo:latest
+  bienegaessli-mongo:
+    container_name: bienegaessli-mongo
+    image: mongo:8
     ports:
       - '27017:27017'
     command:
       - --storageEngine=wiredTiger
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "${MONGO_USERNAME}"
+      MONGO_INITDB_ROOT_PASSWORD: "${MONGO_PASSWORD}"
+      MONGO_INITDB_DATABASE: "${MONGO_DATABASE}"
     volumes:
-      - data:/data/db
-    logging:
-      driver: none
+      - ./db-data:/data/db
+    networks:
+      - bienegaessli_network
 
-volumes:
-  data:
-  node_modules:
+networks:
+  traefik:
+    external: true
+  default:
+  bienegaessli_network:
+    driver: bridge
+    internal: true

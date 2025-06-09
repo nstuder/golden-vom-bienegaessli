@@ -1,6 +1,6 @@
-import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
+import { importExportPlugin } from '@payloadcms/plugin-import-export'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { Plugin } from 'payload'
 import { revalidateRedirects } from '@/hooks/revalidateRedirects'
@@ -21,6 +21,7 @@ const generateURL: GenerateURL<Dog | Page> = ({ doc }) => {
 }
 
 export const plugins: Plugin[] = [
+  importExportPlugin({}),
   redirectsPlugin({
     collections: ['pages', 'dogs'],
     overrides: {
@@ -73,5 +74,4 @@ export const plugins: Plugin[] = [
       },
     },
   }),
-  payloadCloudPlugin(),
 ]
