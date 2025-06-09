@@ -8,7 +8,7 @@ services:
     ports:
       - '3002:3000'
     volumes:
-      - ./media:/home/node/media
+      - ./media:/app/public/media
     depends_on:
       - bienegaessli-mongo
     labels:
