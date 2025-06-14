@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 @layer base {
   h1,
@@ -11,6 +14,11 @@
   h6 {
     font-size: unset;
     font-weight: unset;
+  }
+
+  h1, h2 {
+    font-family: 'Tangerine', sans-serif;
+    font-weight: 700;
   }
 
   :root {

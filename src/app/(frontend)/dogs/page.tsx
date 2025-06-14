@@ -1,10 +1,10 @@
 import type { Metadata } from 'next/types'
-
-import { PageRange } from '@/components/PageRange'
-import { Pagination } from '@/components/Pagination'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
+import Link from 'next/link'
+import { Media } from '@/components/Media'
+import { cn } from '@/utilities/ui'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -12,7 +12,7 @@ export const revalidate = 600
 export default async function Page() {
   const payload = await getPayload({ config: configPromise })
 
-  const posts = await payload.find({
+  const dogs = await payload.find({
     collection: 'dogs',
     depth: 1,
     limit: 12,
@@ -20,6 +20,7 @@ export default async function Page() {
     select: {
       title: true,
       slug: true,
+      heroImage: true,
       categories: true,
       meta: true,
     },
@@ -29,25 +30,24 @@ export default async function Page() {
     <div className="pt-24 pb-24">
       <div className="container mb-16">
         <div className="prose max-w-none">
-          <h1>Posts</h1>
+          <h1>Hunde</h1>
         </div>
       </div>
 
       <div className="container mb-8">
-        <PageRange
-          collection="posts"
-          currentPage={posts.page}
-          limit={12}
-          totalDocs={posts.totalDocs}
-        />
-      </div>
-
-      {/*<CollectionArchive posts={posts.docs} />*/}
-
-      <div className="container">
-        {posts.totalPages > 1 && posts.page && (
-          <Pagination page={posts.page} totalPages={posts.totalPages} />
-        )}
+        {dogs &&
+          dogs.docs.length > 0 &&
+          dogs.docs.map((dog) => (
+            <Link href={`/dogs/${dog.slug}`} key={dog.id}>
+              <Media
+                imgClassName={cn('border border-border rounded-[0.8rem] w-full')}
+                resource={dog.heroImage}
+              />
+              <div className="flex items-center">
+                <h1 className={'my-3 mx-auto text-4xl'}>{dog.title}</h1>
+              </div>
+            </Link>
+          ))}
       </div>
     </div>
   )

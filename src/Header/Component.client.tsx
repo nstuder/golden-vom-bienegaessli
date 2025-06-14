@@ -11,8 +11,8 @@ interface HeaderClientProps {
 
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   return (
-    <header className="relative z-20 bg-primary  ">
-      <div className="py-6 px-3 flex justify-between">
+    <header className="relative z-50 bg-primary">
+      <div className="py-6 px-3 flex justify-between items-center">
         <HeaderNav data={data} />
       </div>
     </header>

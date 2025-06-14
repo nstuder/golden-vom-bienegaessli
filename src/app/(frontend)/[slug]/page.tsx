@@ -64,7 +64,7 @@ export default async function Page({ params: paramsPromise }: Args) {
       {draft && <LivePreviewListener />}
 
       <RenderHero {...hero} />
-      <div className="container pt-16 pb-24">
+      <div className="md:container pt-16 pb-24">
         <RenderBlocks blocks={layout} />
       </div>
     </main>
