@@ -1,14 +1,5 @@
 import type { CollectionConfig } from 'payload'
 
-import {
-  BlocksFeature,
-  FixedToolbarFeature,
-  HeadingFeature,
-  HorizontalRuleFeature,
-  InlineToolbarFeature,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical'
-
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
@@ -24,6 +15,8 @@ import {
 } from '@payloadcms/plugin-seo/fields'
 import { slugField } from '@/fields/slug'
 import { Carousel } from '@/blocks/Carousel/config'
+import { hero } from '@/heros/config'
+import { Content } from '@/blocks/Content/config'
 
 export const Dogs: CollectionConfig<'dogs'> = {
   slug: 'dogs',
@@ -43,7 +36,7 @@ export const Dogs: CollectionConfig<'dogs'> = {
   },
   // This config controls what's populated by default when a post is referenced
   // https://payloadcms.com/docs/queries/select#defaultpopulate-collection-config-property
-  // Type safe if the collection slug generic is passed to `CollectionConfig` - `CollectionConfig<'dogs'>
+  // Type safe if the collection slug generic is passed to `CollectionConfig` - `CollectionConfig<'hunde'>
   defaultPopulate: {
     title: true,
     slug: true,
@@ -85,27 +78,31 @@ export const Dogs: CollectionConfig<'dogs'> = {
         {
           fields: [
             {
-              name: 'heroImage',
+              name: 'teaserImage',
+              label: 'Teaser Bild',
               type: 'upload',
               relationTo: 'media',
-            },
-            {
-              name: 'content',
-              type: 'richText',
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => {
-                  return [
-                    ...rootFeatures,
-                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                    BlocksFeature({ blocks: [MediaBlock, Carousel] }),
-                    FixedToolbarFeature(),
-                    InlineToolbarFeature(),
-                    HorizontalRuleFeature(),
-                  ]
-                },
-              }),
-              label: false,
               required: true,
+            },
+            hero,
+          ],
+          label: 'Hero',
+        },
+        {
+          fields: [
+            {
+              name: 'layout',
+              label: 'Inhalt',
+              labels: {
+                singular: 'Inhalt',
+                plural: 'Inhalte',
+              },
+              type: 'blocks',
+              blocks: [Carousel, Content, MediaBlock],
+              required: true,
+              admin: {
+                initCollapsed: true,
+              },
             },
           ],
           label: 'Inhalt',

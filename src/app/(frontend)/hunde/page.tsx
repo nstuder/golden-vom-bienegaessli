@@ -20,31 +20,28 @@ export default async function Page() {
     select: {
       title: true,
       slug: true,
-      heroImage: true,
-      categories: true,
+      teaserImage: true,
       meta: true,
     },
   })
 
   return (
-    <div className="pt-24 pb-24">
-      <div className="container mb-16">
-        <div className="prose max-w-none">
-          <h1>Hunde</h1>
-        </div>
+    <div className="pt-10 pb-24">
+      <div className="container mb-10">
+        <h1 className={'text-5xl text-center'}>Hunde</h1>
       </div>
 
-      <div className="container mb-8">
+      <div className="container mb-8 grid sm:grid-cols-2 gap-5 align-middle">
         {dogs &&
           dogs.docs.length > 0 &&
           dogs.docs.map((dog) => (
-            <Link href={`/dogs/${dog.slug}`} key={dog.id}>
+            <Link href={`/hunde/${dog.slug}`} key={dog.id} className={'block'}>
               <Media
-                imgClassName={cn('border border-border rounded-[0.8rem] w-full')}
-                resource={dog.heroImage}
+                imgClassName={cn('border border-border rounded-[0.4rem] w-full hover:shadow-xl')}
+                resource={dog.teaserImage}
               />
               <div className="flex items-center">
-                <h1 className={'my-3 mx-auto text-4xl'}>{dog.title}</h1>
+                <h2 className={'my-3 mx-auto text-4xl'}>{dog.title}</h2>
               </div>
             </Link>
           ))}

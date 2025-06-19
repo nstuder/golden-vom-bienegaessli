@@ -40,7 +40,7 @@ type Args = {
 export default async function Post({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
   const { slug = '' } = await paramsPromise
-  const url = '/dogs/' + slug
+  const url = '/hunde/' + slug
   const dog = await queryPostBySlug({ slug })
 
   if (!dog) return <PayloadRedirects url={url} />

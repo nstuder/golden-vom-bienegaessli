@@ -35,16 +35,16 @@ const getDogsSitemap = unstable_cache(
       ? results.docs
           .filter((post) => Boolean(post?.slug))
           .map((post) => ({
-            loc: `${SITE_URL}/dogs/${post?.slug}`,
+            loc: `${SITE_URL}/hunde/${post?.slug}`,
             lastmod: post.updatedAt || dateFallback,
           }))
       : []
 
     return sitemap
   },
-  ['dogs-sitemap'],
+  ['hunde-sitemap'],
   {
-    tags: ['dogs-sitemap'],
+    tags: ['hunde-sitemap'],
   },
 )
 

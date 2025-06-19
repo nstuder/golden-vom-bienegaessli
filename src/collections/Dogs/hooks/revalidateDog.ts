@@ -11,7 +11,7 @@ export const revalidateDog: CollectionAfterChangeHook<Dog> = ({
 }) => {
   if (!context.disableRevalidate) {
     if (doc._status === 'published') {
-      const path = `/dogs/${doc.slug}`
+      const path = `/hunde/${doc.slug}`
 
       payload.logger.info(`Revalidating post at path: ${path}`)
 
@@ -20,7 +20,7 @@ export const revalidateDog: CollectionAfterChangeHook<Dog> = ({
 
     // If the post was previously published, we need to revalidate the old path
     if (previousDoc._status === 'published' && doc._status !== 'published') {
-      const oldPath = `/dogs/${previousDoc.slug}`
+      const oldPath = `/hunde/${previousDoc.slug}`
 
       payload.logger.info(`Revalidating old post at path: ${oldPath}`)
 
@@ -32,10 +32,10 @@ export const revalidateDog: CollectionAfterChangeHook<Dog> = ({
 
 export const revalidateDelete: CollectionAfterDeleteHook<Dog> = ({ doc, req: { context } }) => {
   if (!context.disableRevalidate) {
-    const path = `/dogs/${doc?.slug}`
+    const path = `/hunde/${doc?.slug}`
 
     revalidatePath(path)
-    revalidateTag('dogs-sitemap')
+    revalidateTag('hunde-sitemap')
   }
 
   return doc

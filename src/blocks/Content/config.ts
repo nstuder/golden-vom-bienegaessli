@@ -1,34 +1,30 @@
 import type { Block, Field } from 'payload'
 
-import {
-  FixedToolbarFeature,
-  HeadingFeature,
-  InlineToolbarFeature,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical'
-
-import { link } from '@/fields/link'
+import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
+import { MediaBlock } from '@/blocks/MediaBlock/config'
+import { Carousel } from '@/blocks/Carousel/config'
 
 const columnFields: Field[] = [
   {
     name: 'size',
+    label: 'Größe',
     type: 'select',
-    defaultValue: 'oneThird',
+    defaultValue: 'full',
     options: [
       {
-        label: 'One Third',
+        label: '1/3',
         value: 'oneThird',
       },
       {
-        label: 'Half',
+        label: '1/2',
         value: 'half',
       },
       {
-        label: 'Two Thirds',
+        label: '2/3',
         value: 'twoThirds',
       },
       {
-        label: 'Full',
+        label: 'Voll',
         value: 'full',
       },
     ],
@@ -38,37 +34,25 @@ const columnFields: Field[] = [
     type: 'richText',
     editor: lexicalEditor({
       features: ({ rootFeatures }) => {
-        return [
-          ...rootFeatures,
-          HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
-          FixedToolbarFeature(),
-          InlineToolbarFeature(),
-        ]
+        return [...rootFeatures, BlocksFeature({ blocks: [MediaBlock, Carousel] })]
       },
     }),
     label: false,
   },
-  {
-    name: 'enableLink',
-    type: 'checkbox',
-  },
-  link({
-    overrides: {
-      admin: {
-        condition: (_data, siblingData) => {
-          return Boolean(siblingData?.enableLink)
-        },
-      },
-    },
-  }),
 ]
 
 export const Content: Block = {
   slug: 'content',
+  labels: {
+    singular: 'Inhalt',
+    plural: 'Inhalte',
+  },
   interfaceName: 'ContentBlock',
   fields: [
     {
       name: 'columns',
+      label: 'Spalten',
+      labels: { plural: 'Spalten', singular: 'Spalte' },
       type: 'array',
       admin: {
         initCollapsed: true,

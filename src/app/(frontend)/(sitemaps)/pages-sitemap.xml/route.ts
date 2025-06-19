@@ -37,7 +37,7 @@ const getPagesSitemap = unstable_cache(
         lastmod: dateFallback,
       },
       {
-        loc: `${SITE_URL}/dogs`,
+        loc: `${SITE_URL}/hunde`,
         lastmod: dateFallback,
       },
     ]

@@ -81,6 +81,11 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
+              label: 'Inhalt',
+              labels: {
+                singular: 'Inhalt',
+                plural: 'Inhalte',
+              },
               blocks: [Carousel, Content, MediaBlock],
               required: true,
               admin: {
@@ -88,7 +93,7 @@ export const Pages: CollectionConfig<'pages'> = {
               },
             },
           ],
-          label: 'Content',
+          label: 'Inhalt',
         },
         {
           name: 'meta',
