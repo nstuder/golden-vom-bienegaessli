@@ -5,11 +5,13 @@ import type { Page } from '@/payload-types'
 import { CarouselBlock } from '@/blocks/Carousel/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { PedigreeBlock } from '@/blocks/Pedigree/Component'
 
 const blockComponents = {
   content: ContentBlock,
   carousel: CarouselBlock,
   mediaBlock: MediaBlock,
+  pedigree: PedigreeBlock,
 }
 
 export const RenderBlocks: React.FC<{

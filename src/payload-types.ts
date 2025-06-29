@@ -176,7 +176,7 @@ export interface Page {
     };
     media?: (string | null) | Media;
   };
-  layout: (CarouselBlock | ContentBlock | MediaBlock)[];
+  layout: (CarouselBlock | ContentBlock | MediaBlock | PedigreeBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -344,6 +344,35 @@ export interface MediaBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PedigreeBlock".
+ */
+export interface PedigreeBlock {
+  fatherName: string;
+  fatherImage: string | Media;
+  motherName: string;
+  motherImage?: (string | null) | Media;
+  pedigreeData?: {
+    father?: string | null;
+    fathersFather?: string | null;
+    fathersFathersFather?: string | null;
+    fathersFathersMother?: string | null;
+    fathersMother?: string | null;
+    fathersMothersFather?: string | null;
+    fathersMothersMother?: string | null;
+    mother?: string | null;
+    mothersFather?: string | null;
+    mothersFathersFather?: string | null;
+    mothersFathersMother?: string | null;
+    mothersMother?: string | null;
+    mothersMothersFather?: string | null;
+    mothersMothersMother?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'pedigree';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "dogs".
  */
 export interface Dog {
@@ -380,7 +409,7 @@ export interface Dog {
     };
     media?: (string | null) | Media;
   };
-  layout: (CarouselBlock | ContentBlock | MediaBlock)[];
+  layout: (CarouselBlock | ContentBlock | MediaBlock | PedigreeBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -880,6 +909,7 @@ export interface PagesSelect<T extends boolean = true> {
         carousel?: T | CarouselBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
+        pedigree?: T | PedigreeBlockSelect<T>;
       };
   meta?:
     | T
@@ -937,6 +967,36 @@ export interface MediaBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PedigreeBlock_select".
+ */
+export interface PedigreeBlockSelect<T extends boolean = true> {
+  fatherName?: T;
+  fatherImage?: T;
+  motherName?: T;
+  motherImage?: T;
+  pedigreeData?:
+    | T
+    | {
+        father?: T;
+        fathersFather?: T;
+        fathersFathersFather?: T;
+        fathersFathersMother?: T;
+        fathersMother?: T;
+        fathersMothersFather?: T;
+        fathersMothersMother?: T;
+        mother?: T;
+        mothersFather?: T;
+        mothersFathersFather?: T;
+        mothersFathersMother?: T;
+        mothersMother?: T;
+        mothersMothersFather?: T;
+        mothersMothersMother?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "dogs_select".
  */
 export interface DogsSelect<T extends boolean = true> {
@@ -967,6 +1027,7 @@ export interface DogsSelect<T extends boolean = true> {
         carousel?: T | CarouselBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
+        pedigree?: T | PedigreeBlockSelect<T>;
       };
   meta?:
     | T

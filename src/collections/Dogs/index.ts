@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload'
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { Pedigree } from '../../blocks/Pedigree/config'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidateDog } from './hooks/revalidateDog'
 
@@ -98,7 +99,7 @@ export const Dogs: CollectionConfig<'dogs'> = {
                 plural: 'Inhalte',
               },
               type: 'blocks',
-              blocks: [Carousel, Content, MediaBlock],
+              blocks: [Carousel, Content, MediaBlock, Pedigree],
               required: true,
               admin: {
                 initCollapsed: true,

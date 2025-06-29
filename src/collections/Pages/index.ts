@@ -5,6 +5,7 @@ import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Carousel } from '../../blocks/Carousel/config'
 import { Content } from '../../blocks/Content/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { Pedigree } from '../../blocks/Pedigree/config'
 import { hero } from '@/heros/config'
 import { slugField } from '@/fields/slug'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -86,7 +87,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 singular: 'Inhalt',
                 plural: 'Inhalte',
               },
-              blocks: [Carousel, Content, MediaBlock],
+              blocks: [Carousel, Content, MediaBlock, Pedigree],
               required: true,
               admin: {
                 initCollapsed: true,
