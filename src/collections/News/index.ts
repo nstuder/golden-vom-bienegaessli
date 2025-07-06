@@ -7,28 +7,18 @@ import { Content } from '../../blocks/Content/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { Pedigree } from '../../blocks/Pedigree/config'
 import { Tabs } from '../../blocks/Tabs/config'
-import { hero } from '@/heros/config'
-import { slugField } from '@/fields/slug'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
 
-import {
-  MetaDescriptionField,
-  MetaImageField,
-  MetaTitleField,
-  OverviewField,
-  PreviewField,
-} from '@payloadcms/plugin-seo/fields'
-
-export const Pages: CollectionConfig<'pages'> = {
-  slug: 'pages',
+export const News: CollectionConfig<'news'> = {
+  slug: 'news',
   labels: {
     singular: {
-      de: 'Seite',
+      de: 'Aktuelles',
     },
     plural: {
-      de: 'Seiten',
+      de: 'Aktuelles',
     },
   },
   access: {
@@ -39,7 +29,7 @@ export const Pages: CollectionConfig<'pages'> = {
   },
   // This config controls what's populated by default when a page is referenced
   // https://payloadcms.com/docs/queries/select#defaultpopulate-collection-config-property
-  // Type safe if the collection slug generic is passed to `CollectionConfig` - `CollectionConfig<'pages'>
+  // Type safe if the collection slug generic is passed to `CollectionConfig` - `CollectionConfig<'news'>
   defaultPopulate: {
     title: true,
     slug: true,
@@ -50,7 +40,7 @@ export const Pages: CollectionConfig<'pages'> = {
       url: ({ data, req }) => {
         const path = generatePreviewPath({
           slug: typeof data?.slug === 'string' ? data.slug : '',
-          collection: 'pages',
+          collection: 'news',
           req,
         })
 
@@ -60,7 +50,7 @@ export const Pages: CollectionConfig<'pages'> = {
     preview: (data, { req }) =>
       generatePreviewPath({
         slug: typeof data?.slug === 'string' ? data.slug : '',
-        collection: 'pages',
+        collection: 'news',
         req,
       }),
     useAsTitle: 'title',
@@ -72,68 +62,19 @@ export const Pages: CollectionConfig<'pages'> = {
       required: true,
     },
     {
-      type: 'tabs',
-      tabs: [
-        {
-          fields: [hero],
-          label: 'Hero',
-        },
-        {
-          fields: [
-            {
-              name: 'layout',
-              type: 'blocks',
-              label: 'Inhalt',
-              labels: {
-                singular: 'Inhalt',
-                plural: 'Inhalte',
-              },
-              blocks: [Carousel, Content, MediaBlock, Pedigree, Tabs],
-              required: true,
-              admin: {
-                initCollapsed: true,
-              },
-            },
-          ],
-          label: 'Inhalt',
-        },
-        {
-          name: 'meta',
-          label: 'SEO',
-          fields: [
-            OverviewField({
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-              imagePath: 'meta.image',
-            }),
-            MetaTitleField({
-              hasGenerateFn: true,
-            }),
-            MetaImageField({
-              relationTo: 'media',
-            }),
-
-            MetaDescriptionField({}),
-            PreviewField({
-              // if the `generateUrl` function is configured
-              hasGenerateFn: true,
-
-              // field paths to match the target field for data
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-            }),
-          ],
-        },
-      ],
-    },
-    {
-      name: 'publishedAt',
-      type: 'date',
+      name: 'layout',
+      type: 'blocks',
+      label: 'Inhalt',
+      labels: {
+        singular: 'Inhalt',
+        plural: 'Inhalte',
+      },
+      blocks: [Carousel, Content, MediaBlock, Pedigree, Tabs],
+      required: true,
       admin: {
-        position: 'sidebar',
+        initCollapsed: true,
       },
     },
-    ...slugField(),
   ],
   hooks: {
     afterChange: [revalidatePage],

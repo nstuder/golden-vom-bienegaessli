@@ -18,6 +18,7 @@ import { slugField } from '@/fields/slug'
 import { Carousel } from '@/blocks/Carousel/config'
 import { hero } from '@/heros/config'
 import { Content } from '@/blocks/Content/config'
+import { Tabs } from '@/blocks/Tabs/config'
 
 export const Dogs: CollectionConfig<'dogs'> = {
   slug: 'dogs',
@@ -99,7 +100,7 @@ export const Dogs: CollectionConfig<'dogs'> = {
                 plural: 'Inhalte',
               },
               type: 'blocks',
-              blocks: [Carousel, Content, MediaBlock, Pedigree],
+              blocks: [Carousel, Content, MediaBlock, Pedigree, Tabs],
               required: true,
               admin: {
                 initCollapsed: true,

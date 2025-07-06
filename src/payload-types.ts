@@ -71,6 +71,7 @@ export interface Config {
     dogs: Dog;
     media: Media;
     users: User;
+    news: News;
     exports: Export;
     redirects: Redirect;
     forms: Form;
@@ -86,6 +87,7 @@ export interface Config {
     dogs: DogsSelect<false> | DogsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    news: NewsSelect<false> | NewsSelect<true>;
     exports: ExportsSelect<false> | ExportsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
@@ -176,7 +178,7 @@ export interface Page {
     };
     media?: (string | null) | Media;
   };
-  layout: (CarouselBlock | ContentBlock | MediaBlock | PedigreeBlock)[];
+  layout: (CarouselBlock | ContentBlock | MediaBlock | PedigreeBlock | TabsBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -373,6 +375,22 @@ export interface PedigreeBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TabsBlock".
+ */
+export interface TabsBlock {
+  tabs?:
+    | {
+        name: string;
+        content: (CarouselBlock | ContentBlock | MediaBlock | PedigreeBlock)[];
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'tabs';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "dogs".
  */
 export interface Dog {
@@ -409,7 +427,7 @@ export interface Dog {
     };
     media?: (string | null) | Media;
   };
-  layout: (CarouselBlock | ContentBlock | MediaBlock | PedigreeBlock)[];
+  layout: (CarouselBlock | ContentBlock | MediaBlock | PedigreeBlock | TabsBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -448,6 +466,18 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news".
+ */
+export interface News {
+  id: string;
+  title: string;
+  layout: (CarouselBlock | ContentBlock | MediaBlock | PedigreeBlock | TabsBlock)[];
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -817,6 +847,10 @@ export interface PayloadLockedDocument {
         value: string | User;
       } | null)
     | ({
+        relationTo: 'news';
+        value: string | News;
+      } | null)
+    | ({
         relationTo: 'exports';
         value: string | Export;
       } | null)
@@ -910,6 +944,7 @@ export interface PagesSelect<T extends boolean = true> {
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
         pedigree?: T | PedigreeBlockSelect<T>;
+        tabs?: T | TabsBlockSelect<T>;
       };
   meta?:
     | T
@@ -997,6 +1032,28 @@ export interface PedigreeBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TabsBlock_select".
+ */
+export interface TabsBlockSelect<T extends boolean = true> {
+  tabs?:
+    | T
+    | {
+        name?: T;
+        content?:
+          | T
+          | {
+              carousel?: T | CarouselBlockSelect<T>;
+              content?: T | ContentBlockSelect<T>;
+              mediaBlock?: T | MediaBlockSelect<T>;
+              pedigree?: T | PedigreeBlockSelect<T>;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "dogs_select".
  */
 export interface DogsSelect<T extends boolean = true> {
@@ -1028,6 +1085,7 @@ export interface DogsSelect<T extends boolean = true> {
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
         pedigree?: T | PedigreeBlockSelect<T>;
+        tabs?: T | TabsBlockSelect<T>;
       };
   meta?:
     | T
@@ -1157,6 +1215,25 @@ export interface UsersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news_select".
+ */
+export interface NewsSelect<T extends boolean = true> {
+  title?: T;
+  layout?:
+    | T
+    | {
+        carousel?: T | CarouselBlockSelect<T>;
+        content?: T | ContentBlockSelect<T>;
+        mediaBlock?: T | MediaBlockSelect<T>;
+        pedigree?: T | PedigreeBlockSelect<T>;
+        tabs?: T | TabsBlockSelect<T>;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1566,6 +1643,10 @@ export interface TaskSchedulePublish {
       | ({
           relationTo: 'dogs';
           value: string | Dog;
+        } | null)
+      | ({
+          relationTo: 'news';
+          value: string | News;
         } | null);
     global?: string | null;
     user?: (string | null) | User;

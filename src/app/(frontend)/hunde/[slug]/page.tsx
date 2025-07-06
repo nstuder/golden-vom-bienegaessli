@@ -52,7 +52,7 @@ export default async function Post({ params: paramsPromise }: Args) {
       {draft && <LivePreviewListener />}
 
       <RenderHero {...dog.hero} />
-      <div className="md:container pb-24">
+      <div className="pb-24">
         <RenderBlocks blocks={dog.layout} />
       </div>
     </article>

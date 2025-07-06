@@ -16,6 +16,7 @@ import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
 import { de } from '@payloadcms/translations/languages/de'
+import { News } from '@/collections/News'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -59,7 +60,7 @@ export default buildConfig({
   i18n: {
     supportedLanguages: { de },
   },
-  collections: [Pages, Dogs, Media, Users],
+  collections: [Pages, Dogs, Media, Users, News],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins: [

@@ -13,7 +13,7 @@ export default async function Page() {
   const payload = await getPayload({ config: configPromise })
 
   const posts = await payload.find({
-    collection: 'dogs',
+    collection: 'news',
     depth: 1,
     limit: 12,
     overrideAccess: false,

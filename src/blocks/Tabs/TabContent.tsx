@@ -1,23 +1,19 @@
 import React, { Fragment } from 'react'
 
-import type { Page } from '@/payload-types'
-
+import { ContentBlock as ContentComponent } from '@/blocks/Content/Component'
 import { CarouselBlock } from '@/blocks/Carousel/Component'
-import { ContentBlock } from '@/blocks/Content/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { PedigreeBlock } from '@/blocks/Pedigree/Component'
-import { TabsBlock } from '@/blocks/Tabs/Component'
 
 const blockComponents = {
-  content: ContentBlock,
+  content: ContentComponent,
   carousel: CarouselBlock,
   mediaBlock: MediaBlock,
   pedigree: PedigreeBlock,
-  tabs: TabsBlock,
 }
 
-export const RenderBlocks: React.FC<{
-  blocks: Page['layout'][0][]
+export const TabContent: React.FC<{
+  blocks: any[]
 }> = (props) => {
   const { blocks } = props
 
