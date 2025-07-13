@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Dogs } from './collections/Dogs'
+import { Litters } from './collections/Litters'
 import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
@@ -29,7 +30,7 @@ export default buildConfig({
     user: Users.slug,
     livePreview: {
       url: 'http://localhost:3000',
-      collections: ['pages', 'dogs'],
+      collections: ['pages', 'dogs', 'litters'],
       breakpoints: [
         {
           label: 'Mobile',
@@ -60,7 +61,7 @@ export default buildConfig({
   i18n: {
     supportedLanguages: { de },
   },
-  collections: [Pages, Dogs, Media, Users, News],
+  collections: [Pages, Dogs, Litters, Media, Users, News],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins: [

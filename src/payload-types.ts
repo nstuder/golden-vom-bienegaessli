@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     pages: Page;
     dogs: Dog;
+    litters: Litter;
     media: Media;
     users: User;
     news: News;
@@ -85,6 +86,7 @@ export interface Config {
   collectionsSelect: {
     pages: PagesSelect<false> | PagesSelect<true>;
     dogs: DogsSelect<false> | DogsSelect<true>;
+    litters: LittersSelect<false> | LittersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     news: NewsSelect<false> | NewsSelect<true>;
@@ -457,6 +459,65 @@ export interface Dog {
   id: string;
   title: string;
   teaserImage: string | Media;
+  hero: {
+    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
+    richText?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    carousel?: {
+      autoSlide?: boolean | null;
+      /**
+       * Time in seconds between slide transitions when auto slide is enabled
+       */
+      slideTime?: number | null;
+      items: {
+        media: string | Media;
+        id?: string | null;
+      }[];
+    };
+    media?: (string | null) | Media;
+  };
+  layout: (CarouselBlock | ContentBlock | MediaBlock | PedigreeBlock | TabsBlock)[];
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        name?: string | null;
+      }[]
+    | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "litters".
+ */
+export interface Litter {
+  id: string;
+  title: string;
   hero: {
     type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
     richText?: {
@@ -914,6 +975,10 @@ export interface PayloadLockedDocument {
         value: string | Dog;
       } | null)
     | ({
+        relationTo: 'litters';
+        value: string | Litter;
+      } | null)
+    | ({
         relationTo: 'media';
         value: string | Media;
       } | null)
@@ -1168,6 +1233,60 @@ export interface NewsBlockSelect<T extends boolean = true> {
 export interface DogsSelect<T extends boolean = true> {
   title?: T;
   teaserImage?: T;
+  hero?:
+    | T
+    | {
+        type?: T;
+        richText?: T;
+        carousel?:
+          | T
+          | {
+              autoSlide?: T;
+              slideTime?: T;
+              items?:
+                | T
+                | {
+                    media?: T;
+                    id?: T;
+                  };
+            };
+        media?: T;
+      };
+  layout?:
+    | T
+    | {
+        carousel?: T | CarouselBlockSelect<T>;
+        content?: T | ContentBlockSelect<T>;
+        mediaBlock?: T | MediaBlockSelect<T>;
+        pedigree?: T | PedigreeBlockSelect<T>;
+        tabs?: T | TabsBlockSelect<T>;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  publishedAt?: T;
+  populatedAuthors?:
+    | T
+    | {
+        id?: T;
+        name?: T;
+      };
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "litters_select".
+ */
+export interface LittersSelect<T extends boolean = true> {
+  title?: T;
   hero?:
     | T
     | {
@@ -1745,6 +1864,10 @@ export interface TaskSchedulePublish {
       | ({
           relationTo: 'dogs';
           value: string | Dog;
+        } | null)
+      | ({
+          relationTo: 'litters';
+          value: string | Litter;
         } | null)
       | ({
           relationTo: 'news';
