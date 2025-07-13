@@ -4,14 +4,18 @@ import type { Page } from '@/payload-types'
 
 import { CarouselBlock } from '@/blocks/Carousel/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
+import { GallerieBlock } from '@/blocks/Gallerie/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { NewsBlock } from '@/blocks/News/Component'
 import { PedigreeBlock } from '@/blocks/Pedigree/Component'
 import { TabsBlock } from '@/blocks/Tabs/Component'
 
 const blockComponents = {
   content: ContentBlock,
   carousel: CarouselBlock,
+  gallerie: GallerieBlock,
   mediaBlock: MediaBlock,
+  news: NewsBlock,
   pedigree: PedigreeBlock,
   tabs: TabsBlock,
 }

@@ -381,13 +381,73 @@ export interface TabsBlock {
   tabs?:
     | {
         name: string;
-        content: (CarouselBlock | ContentBlock | MediaBlock | PedigreeBlock)[];
+        content: (CarouselBlock | ContentBlock | GallerieBlock | MediaBlock | PedigreeBlock | NewsBlock)[];
         id?: string | null;
       }[]
     | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'tabs';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GallerieBlock".
+ */
+export interface GallerieBlock {
+  usePrimaryBackground?: boolean | null;
+  images: {
+    image: string | Media;
+    caption?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'gallerie';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsBlock".
+ */
+export interface NewsBlock {
+  newsItems?:
+    | {
+        date: string;
+        title: string;
+        content: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'news';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -473,8 +533,23 @@ export interface User {
  */
 export interface News {
   id: string;
+  date: string;
   title: string;
-  layout: (CarouselBlock | ContentBlock | MediaBlock | PedigreeBlock | TabsBlock)[];
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -1044,9 +1119,43 @@ export interface TabsBlockSelect<T extends boolean = true> {
           | {
               carousel?: T | CarouselBlockSelect<T>;
               content?: T | ContentBlockSelect<T>;
+              gallerie?: T | GallerieBlockSelect<T>;
               mediaBlock?: T | MediaBlockSelect<T>;
               pedigree?: T | PedigreeBlockSelect<T>;
+              news?: T | NewsBlockSelect<T>;
             };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GallerieBlock_select".
+ */
+export interface GallerieBlockSelect<T extends boolean = true> {
+  usePrimaryBackground?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsBlock_select".
+ */
+export interface NewsBlockSelect<T extends boolean = true> {
+  newsItems?:
+    | T
+    | {
+        date?: T;
+        title?: T;
+        content?: T;
         id?: T;
       };
   id?: T;
@@ -1221,16 +1330,9 @@ export interface UsersSelect<T extends boolean = true> {
  * via the `definition` "news_select".
  */
 export interface NewsSelect<T extends boolean = true> {
+  date?: T;
   title?: T;
-  layout?:
-    | T
-    | {
-        carousel?: T | CarouselBlockSelect<T>;
-        content?: T | ContentBlockSelect<T>;
-        mediaBlock?: T | MediaBlockSelect<T>;
-        pedigree?: T | PedigreeBlockSelect<T>;
-        tabs?: T | TabsBlockSelect<T>;
-      };
+  content?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

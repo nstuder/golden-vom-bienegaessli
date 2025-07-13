@@ -21,6 +21,10 @@
     font-weight: 700;
   }
 
+  h2 {
+    font-size: 2rem;
+  }
+
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;

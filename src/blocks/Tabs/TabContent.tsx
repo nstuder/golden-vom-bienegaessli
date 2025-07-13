@@ -2,12 +2,16 @@ import React, { Fragment } from 'react'
 
 import { ContentBlock as ContentComponent } from '@/blocks/Content/Component'
 import { CarouselBlock } from '@/blocks/Carousel/Component'
+import { GallerieBlock } from '@/blocks/Gallerie/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { PedigreeBlock } from '@/blocks/Pedigree/Component'
+import { NewsBlock } from '@/blocks/News/Component'
 
 const blockComponents = {
   content: ContentComponent,
   carousel: CarouselBlock,
+  gallerie: GallerieBlock,
+  news: NewsBlock,
   mediaBlock: MediaBlock,
   pedigree: PedigreeBlock,
 }

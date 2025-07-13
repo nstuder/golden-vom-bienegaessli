@@ -3,13 +3,11 @@ import type { CollectionConfig } from 'payload'
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Carousel } from '../../blocks/Carousel/config'
-import { Content } from '../../blocks/Content/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
-import { Pedigree } from '../../blocks/Pedigree/config'
-import { Tabs } from '../../blocks/Tabs/config'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
+import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 
 export const News: CollectionConfig<'news'> = {
   slug: 'news',
@@ -57,23 +55,32 @@ export const News: CollectionConfig<'news'> = {
   },
   fields: [
     {
+      name: 'date',
+      label: 'Datum',
+      type: 'date',
+      required: true,
+      admin: {
+        date: {
+          pickerAppearance: 'dayOnly',
+        },
+      },
+    },
+    {
       name: 'title',
+      label: 'Titel',
       type: 'text',
       required: true,
     },
     {
-      name: 'layout',
-      type: 'blocks',
+      name: 'content',
       label: 'Inhalt',
-      labels: {
-        singular: 'Inhalt',
-        plural: 'Inhalte',
-      },
-      blocks: [Carousel, Content, MediaBlock, Pedigree, Tabs],
+      type: 'richText',
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => {
+          return [...rootFeatures, BlocksFeature({ blocks: [MediaBlock, Carousel] })]
+        },
+      }),
       required: true,
-      admin: {
-        initCollapsed: true,
-      },
     },
   ],
   hooks: {

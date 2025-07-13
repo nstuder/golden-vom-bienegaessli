@@ -2,6 +2,7 @@ import type { Metadata } from 'next/types'
 
 import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
+import { NewsBlock } from '@/blocks/News/Component'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
@@ -14,28 +15,25 @@ export default async function Page() {
 
   const posts = await payload.find({
     collection: 'news',
-    depth: 1,
+    depth: 2,
     limit: 12,
     overrideAccess: false,
-    select: {
-      title: true,
-      slug: true,
-      categories: true,
-      meta: true,
-    },
   })
 
   return (
-    <div className="pt-24 pb-24">
+    <div className="pt-12 pb-12">
       <div className="container mb-16">
         <div className="prose max-w-none">
-          <h1>Aktuelles</h1>
+          <h1 className={'text-center'}>Aktuelles</h1>
         </div>
       </div>
 
+      {/* Render the news posts using the NewsBlock component */}
+      <NewsBlock newsItems={posts.docs} />
+
       <div className="container mb-8">
         <PageRange
-          collection="posts"
+          collection="news"
           currentPage={posts.page}
           limit={12}
           totalDocs={posts.totalDocs}

@@ -40,12 +40,7 @@ export default async function Page({ params: paramsPromise }: Args) {
       </div>
 
       <div className="container mb-8">
-        <PageRange
-          collection="posts"
-          currentPage={posts.page}
-          limit={12}
-          totalDocs={posts.totalDocs}
-        />
+        <PageRange currentPage={posts.page} limit={12} totalDocs={posts.totalDocs} />
       </div>
 
       <div className="container">

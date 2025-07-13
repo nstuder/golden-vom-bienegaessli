@@ -15,7 +15,6 @@ export default async function Page() {
   const dogs = await payload.find({
     collection: 'dogs',
     depth: 1,
-    limit: 12,
     overrideAccess: false,
     select: {
       title: true,
