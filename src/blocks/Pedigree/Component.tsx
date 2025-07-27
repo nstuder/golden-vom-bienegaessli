@@ -11,11 +11,21 @@ export const PedigreeBlock: React.FC<PedigreeBlockProps> = (props) => {
         {/* Left column (1/3) with images and name */}
         <div className="col-span-4 lg:col-span-4">
           <div className="flex flex-col gap-4">
-            {fatherImage && <Media imgClassName="w-full" resource={fatherImage} />}
+            {fatherImage && (
+              <Media
+                imgClassName="border border-border rounded-[0.4rem] w-full"
+                resource={fatherImage}
+              />
+            )}
             {fatherName && (
               <h3 className="text-xl font-semibold text-center mt-1 mb-4">{fatherName}</h3>
             )}
-            {motherImage && <Media imgClassName="w-full" resource={motherImage} />}
+            {motherImage && (
+              <Media
+                imgClassName="border border-border rounded-[0.4rem] w-full"
+                resource={motherImage}
+              />
+            )}
             {motherName && <h3 className="text-xl font-semibold text-center mt-2">{motherName}</h3>}
           </div>
         </div>

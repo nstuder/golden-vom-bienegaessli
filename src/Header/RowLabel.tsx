@@ -19,10 +19,5 @@ export const RowLabel: React.FC<RowLabelProps> = () => {
     label = `Dropdown ${rowNumber}: ${data.data.dropdown.label}`
   }
 
-  // Fallback to old structure for backward compatibility
-  if (!data?.data?.type && data?.data?.link?.label) {
-    label = `Nav item ${rowNumber}: ${data.data.link.label}`
-  }
-
   return <div>{label}</div>
 }

@@ -5,6 +5,7 @@ services:
     container_name: bienegaessli-cms
     image: bienegaessli-payload-cms
     build: .
+    restart: always
     ports:
       - '3002:3000'
     volumes:
@@ -32,6 +33,7 @@ services:
     image: mongo:4
     ports:
       - '27017:27017'
+    restart: always
     command:
       - --storageEngine=wiredTiger
     environment:

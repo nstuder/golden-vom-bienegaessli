@@ -144,8 +144,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
       {/* Mobile drawer - always rendered but translated out of view when closed */}
       <div
         ref={drawerRef}
-        className={`md:hidden fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${isDrawerOpen ? 'translate-x-0' : '-translate-x-full'}`}
-        style={{ marginTop: '4.5rem' }}
+        className={`md:hidden mt-14 fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${isDrawerOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
         <div className="p-4 flex flex-col gap-2">
           {navItems.map((item, i) => {
@@ -172,7 +171,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
                 <div key={i} className="py-1" ref={(el) => (dropdownRefs.current[i] = el)}>
                   <button
                     onClick={() => toggleDropdown(i)}
-                    className="flex items-center justify-between w-full text-black hover:text-gray-600 focus:outline-none"
+                    className="flex items-center justify-between w-full text-black font-medium focus:outline-none"
                     aria-expanded={isOpen}
                     aria-haspopup="true"
                   >
@@ -200,9 +199,9 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
                         <div key={j} className="py-1">
                           <CMSLink
                             {...linkItem.link}
-                            appearance="inline"
+                            appearance="link"
                             className={'text-black block w-full'}
-                            onClick={() => setIsDrawerOpen(false)}
+                            onNavigate={() => setIsDrawerOpen(false)}
                           />
                         </div>
                       ))}
@@ -232,7 +231,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
       </div>
 
       {/* Desktop navigation - hidden on mobile */}
-      <nav className="hidden md:flex gap-3 items-center">
+      <nav className="hidden md:flex gap-4 items-center container">
         {navItems.map((item, i) => {
           // Handle single link
           if (item.type === 'link' && item.link?.link) {
@@ -250,7 +249,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
               <div key={i} className="relative" ref={(el) => (dropdownRefs.current[i] = el)}>
                 <button
                   onClick={() => toggleDropdown(i)}
-                  className="flex items-center gap-1 text-black hover:text-gray-600 focus:outline-none"
+                  className="flex items-center gap-1 text-black font-medium hover:underline underline-offset-4 focus:outline-none"
                   aria-expanded={isOpen}
                   aria-haspopup="true"
                 >
@@ -288,7 +287,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
                         >
                           <CMSLink
                             {...linkItem.link}
-                            appearance="inline"
+                            appearance="link"
                             className={'text-black w-full text-left'}
                           />
                         </div>

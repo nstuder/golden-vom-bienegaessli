@@ -30,7 +30,7 @@ export default async function Page() {
         <h1 className={'text-5xl text-center'}>Hunde</h1>
       </div>
 
-      <div className="container mb-8 grid sm:grid-cols-2 gap-5 align-middle">
+      <div className="container mb-8 grid sm:grid-cols-2 gap-8 align-middle">
         {dogs &&
           dogs.docs.length > 0 &&
           dogs.docs.map((dog) => (
@@ -51,6 +51,6 @@ export default async function Page() {
 
 export function generateMetadata(): Metadata {
   return {
-    title: `Payload Website Template Posts`,
+    title: `Hunde | Golden Retriever vom Bienegässli`,
   }
 }

@@ -17,6 +17,7 @@ export default async function Page() {
     collection: 'news',
     depth: 2,
     limit: 12,
+    sort: '-date',
     overrideAccess: false,
   })
 
@@ -51,6 +52,6 @@ export default async function Page() {
 
 export function generateMetadata(): Metadata {
   return {
-    title: `Payload Website Template Posts`,
+    title: `Aktuelles | Golden Retriever vom Bienegässli`,
   }
 }

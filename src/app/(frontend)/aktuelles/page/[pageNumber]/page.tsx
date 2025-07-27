@@ -28,6 +28,7 @@ export default async function Page({ params: paramsPromise }: Args) {
     depth: 1,
     limit: 12,
     page: sanitizedPageNumber,
+    sort: '-date',
     overrideAccess: false,
   })
 
@@ -55,7 +56,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
   const { pageNumber } = await paramsPromise
   return {
-    title: `Payload Website Template Posts Page ${pageNumber || ''}`,
+    title: `Aktuelles Seite ${pageNumber || ''} | Golden Retriever vom Bienegässli`,
   }
 }
 

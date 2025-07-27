@@ -11,7 +11,9 @@ import { Dog, Page } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
 
 const generateTitle: GenerateTitle<Dog | Page> = ({ doc }) => {
-  return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
+  return doc?.title
+    ? `${doc.title} | Golden Retriever vom Bienegässli`
+    : 'Golden Retriever vom Bienegässli'
 }
 
 const generateURL: GenerateURL<Dog | Page> = ({ doc }) => {

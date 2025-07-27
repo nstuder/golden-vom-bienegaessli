@@ -19,7 +19,7 @@ export const NewsBlock: React.FC<NewsBlockProps> = (props) => {
                 <div className={'flex justify-between mb-2'}>
                   <h3 className="text-xl font-semibold">{title}</h3>
                   <div className="text-sm text-muted-foreground">
-                    {date && new Date(date).toLocaleDateString()}
+                    {date && new Date(date).toLocaleDateString('de-DE')}
                   </div>
                 </div>
                 {content && <RichText enableGutter={false} data={content} />}
