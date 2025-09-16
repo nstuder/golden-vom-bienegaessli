@@ -31,7 +31,6 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
   blocks: {
     mediaBlock: ({ node }) => (
       <MediaBlock
-        className="flex justify-center"
         imgClassName="m-0"
         {...node.fields}
         captionClassName="mx-auto max-w-[48rem]"
