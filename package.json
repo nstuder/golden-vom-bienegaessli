@@ -6,7 +6,6 @@
   "type": "module",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build --experimental-build-mode compile",
-    "postbuild": "next-sitemap --config next-sitemap.config.cjs",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
     "dev:prod": "cross-env NODE_OPTIONS=--no-deprecation rm -rf .next && pnpm build && pnpm start",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
@@ -43,7 +42,6 @@
     "graphql": "^16.8.2",
     "lucide-react": "^0.378.0",
     "next": "15.3.0",
-    "next-sitemap": "^4.2.3",
     "payload": "3.39.1",
     "prism-react-renderer": "^2.3.1",
     "react": "19.1.0",
