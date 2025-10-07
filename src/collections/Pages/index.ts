@@ -20,6 +20,7 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
+import { Gallerie } from '@/blocks/Gallerie/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -88,7 +89,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 singular: 'Inhalt',
                 plural: 'Inhalte',
               },
-              blocks: [Carousel, Content, MediaBlock, Pedigree, Tabs],
+              blocks: [Carousel, Content, MediaBlock, Pedigree, Tabs, Gallerie],
               required: true,
               admin: {
                 initCollapsed: true,

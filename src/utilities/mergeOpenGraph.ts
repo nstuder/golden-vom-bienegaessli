@@ -6,7 +6,7 @@ const defaultOpenGraph: Metadata['openGraph'] = {
   description: 'Golden Retriever Zucht vom Bienegässli',
   images: [
     {
-      url: `${getServerSideURL()}/website-template-OG.webp`,
+      url: `${getServerSideURL()}/default_image.webp`,
     },
   ],
   siteName: 'Golden Retriever vom Bienegässli',

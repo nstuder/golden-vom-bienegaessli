@@ -180,7 +180,7 @@ export interface Page {
     };
     media?: (string | null) | Media;
   };
-  layout: (CarouselBlock | ContentBlock | MediaBlock | PedigreeBlock | TabsBlock)[];
+  layout: (CarouselBlock | ContentBlock | MediaBlock | PedigreeBlock | TabsBlock | GallerieBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -1085,6 +1085,7 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         pedigree?: T | PedigreeBlockSelect<T>;
         tabs?: T | TabsBlockSelect<T>;
+        gallerie?: T | GallerieBlockSelect<T>;
       };
   meta?:
     | T
