@@ -14,7 +14,7 @@ services:
       - bienegaessli-mongo
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.bienegaessli.rule=Host(`www.golden-vom-bienegässli.de`, `golden-vom-bienegässli.de`)'
+      - 'traefik.http.routers.bienegaessli.rule=Host(`www.golden-vom-bienegaessli.de`, `golden-vom-bienegaessli.de`)'
       - 'traefik.http.routers.bienegaessli.entrypoints=web, websecure'
       - 'traefik.http.routers.bienegaessli.tls=true'
       - 'traefik.http.routers.bienegaessli.tls.certresolver=myresolver'
