@@ -4,7 +4,7 @@
 WEB_CONTAINER_NAME="bienegaessli-cms"      # The container where your .env is
 MONGO_CONTAINER_NAME="bienegaessli-mongo"  # Your MongoDB container name
 IMAGE_VOLUME_PATH="/app/public/media"      # The path inside your web container to the image directory volume
-BACKUP_DIR="~/backups/bienegaessli"        # Directory on your host machine to store backups
+BACKUP_DIR="$HOME/backups/bienegaessli"        # Directory on your host machine to store backups
 # ---------------------
 
 # Exit immediately if a command exits with a non-zero status
