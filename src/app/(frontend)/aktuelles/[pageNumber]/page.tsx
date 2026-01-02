@@ -1,11 +1,12 @@
 import type { Metadata } from 'next/types'
-
-import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
 import { notFound } from 'next/navigation'
+import { NewsBlock } from '@/blocks/News/Component'
+
+import { pageSize } from '@/app/(frontend)/aktuelles/pageSize'
 
 export const revalidate = 600
 
@@ -23,30 +24,31 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   if (!Number.isInteger(sanitizedPageNumber)) notFound()
 
-  const posts = await payload.find({
-    collection: 'dogs',
-    depth: 1,
-    limit: 12,
+  const news = await payload.find({
+    collection: 'news',
+    depth: 2,
+    limit: pageSize,
     page: sanitizedPageNumber,
     sort: '-date',
     overrideAccess: false,
   })
 
+  if (news.docs.length < 1) notFound()
+
   return (
-    <div className="pt-24 pb-24">
+    <div className="pt-12 pb-12">
       <div className="container mb-16">
         <div className="prose max-w-none">
-          <h1>Posts</h1>
+          <h1 className={'text-center'}>Aktuelles</h1>
         </div>
       </div>
 
-      <div className="container mb-8">
-        <PageRange currentPage={posts.page} limit={12} totalDocs={posts.totalDocs} />
-      </div>
+      {/* Render the news posts using the NewsBlock component */}
+      <NewsBlock newsItems={news.docs} />
 
       <div className="container">
-        {posts?.page && posts?.totalPages > 1 && (
-          <Pagination page={posts.page} totalPages={posts.totalPages} />
+        {news.totalPages > 1 && news.page && (
+          <Pagination basePath="/aktuelles" page={news.page} totalPages={news.totalPages} />
         )}
       </div>
     </div>
