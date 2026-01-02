@@ -8,14 +8,18 @@ import {
 import path from 'path'
 import { fileURLToPath } from 'url'
 
-import { anyone } from '../access/anyone'
-import { authenticated } from '../access/authenticated'
+import { anyone } from '../../access/anyone'
+import { authenticated } from '../../access/authenticated'
+import { generateBlurPlaceholder } from '@/collections/Media/hooks/generateBlurPlaceholder'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export const Media: CollectionConfig = {
   slug: 'media',
+  hooks: {
+    afterChange: [generateBlurPlaceholder],
+  },
   access: {
     create: authenticated,
     delete: authenticated,
@@ -37,10 +41,20 @@ export const Media: CollectionConfig = {
         },
       }),
     },
+    {
+      name: 'blurDataURL',
+      type: 'text',
+      label: 'Blur Placeholder',
+      admin: {
+        description: 'Base64 encoded blur placeholder (auto-generated)',
+        readOnly: true,
+      },
+    },
   ],
   upload: {
     // Upload to the public/media directory in Next.js making them publicly accessible even outside of Payload
-    staticDir: path.resolve(dirname, '../../public/media'),
+    // staticDir: path.resolve(dirname, '../../public/media'),
+    staticDir: 'public/media',
     adminThumbnail: 'thumbnail',
     focalPoint: true,
     imageSizes: [

@@ -30,9 +30,10 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
   let height: number | undefined
   let alt = altFromProps
   let src: StaticImageData | string = srcFromProps || ''
+  let blurUrl: string = `/_next/image?url=${src}&w=16&q=1`
 
   if (!src && resource && typeof resource === 'object') {
-    const { alt: altFromResource, height: fullHeight, url, width: fullWidth } = resource
+    const { alt: altFromResource, height: fullHeight, url, width: fullWidth, blurDataURL } = resource
 
     width = fullWidth!
     height = fullHeight!
@@ -40,6 +41,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
 
     const cacheTag = resource.updatedAt
 
+    blurUrl = blurDataURL ? blurDataURL : blurUrl
     src = getMediaUrl(url, cacheTag)
   }
 
@@ -60,10 +62,12 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         fill={fill}
         height={!fill ? height : undefined}
         priority={priority}
-        quality={70}
+        quality={50}
         loading={loading}
         sizes={sizes}
         src={src}
+        placeholder={'blur'}
+        blurDataURL={blurUrl}
         width={!fill ? width : undefined}
       />
     </picture>

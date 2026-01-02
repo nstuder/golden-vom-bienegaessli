@@ -222,6 +222,10 @@ export interface Media {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Base64 encoded blur placeholder (auto-generated)
+   */
+  blurDataURL?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -1369,6 +1373,7 @@ export interface LittersSelect<T extends boolean = true> {
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   caption?: T;
+  blurDataURL?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

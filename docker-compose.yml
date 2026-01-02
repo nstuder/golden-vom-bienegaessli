@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   bienegaessli-cms:
     container_name: bienegaessli-cms

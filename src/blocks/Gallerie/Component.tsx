@@ -27,7 +27,7 @@ export const GallerieBlock: React.FC<Props> = (props) => {
         className,
       )}
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
         {images.map((item, index) => (
           <div key={index} className="flex flex-col">
             {item.image && typeof item.image === 'object' && (

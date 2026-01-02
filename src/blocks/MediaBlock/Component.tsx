@@ -35,7 +35,7 @@ export const MediaBlock: React.FC<Props> = (props) => {
   return (
     <div
       className={cn(
-        'flex justify-center',
+        'flex justify-center flex-col',
         {
           container: enableGutter,
         },
@@ -44,7 +44,7 @@ export const MediaBlock: React.FC<Props> = (props) => {
     >
       {(media || staticImage) && (
         <Media
-          imgClassName={cn('border border-border rounded-[0.8rem]', imgClassName)}
+          imgClassName={cn('border border-border rounded-[0.8rem] w-full', imgClassName)}
           resource={media}
           src={staticImage}
         />
