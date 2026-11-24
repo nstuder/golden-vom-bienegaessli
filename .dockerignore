@@ -2,3 +2,6 @@
 .next
 node_modules
 public/media
+db-data
+media
+.git
