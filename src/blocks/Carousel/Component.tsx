@@ -55,7 +55,7 @@ export const CarouselBlock: React.FC<Props> = (props) => {
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
           >
             {items.map((item, index) => (
-              <div key={index} className="w-full flex-shrink-0">
+              <div key={index} className="w-full shrink-0">
                 {item.media && typeof item.media === 'object' && (
                   <div className="relative aspect-video w-full">
                     <Media imgClassName="object-cover rounded-lg" resource={item.media} fill />

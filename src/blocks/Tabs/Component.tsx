@@ -18,6 +18,8 @@ export const TabsBlock: React.FC<TabsBlockProps> = (props) => {
         (tab) => `#${tab.name?.toLowerCase().replace(/\s+/g, '-')}` === hash,
       )
       if (tabIndex !== -1) {
+        // window.location.hash is only available after hydration, so syncing in an effect is intended
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setActiveTab(tabIndex)
         // Scroll to the tabs section
         setTimeout(() => {

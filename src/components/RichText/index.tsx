@@ -33,7 +33,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
       <MediaBlock
         imgClassName="m-0"
         {...node.fields}
-        captionClassName="mx-auto max-w-[48rem]"
+        captionClassName="mx-auto max-w-3xl"
         enableGutter={false}
         disableInnerContainer={true}
       />

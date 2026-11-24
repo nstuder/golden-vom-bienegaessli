@@ -13,7 +13,7 @@ export async function Footer() {
         {footerData?.clubs?.map((club) => (
           <a href={club.link} key={club.id} className="flex justify-center align-center">
             <Media
-              pictureClassName="flex-shrink-0 md:w-28 md:h-28 w-16 h-16"
+              pictureClassName="shrink-0 md:w-28 md:h-28 w-16 h-16"
               imgClassName="object-contain h-full w-auto"
               priority
               resource={club.logo}

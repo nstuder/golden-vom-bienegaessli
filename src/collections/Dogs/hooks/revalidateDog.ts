@@ -35,7 +35,7 @@ export const revalidateDelete: CollectionAfterDeleteHook<Dog> = ({ doc, req: { c
     const path = `/hunde/${doc?.slug}`
 
     revalidatePath(path)
-    revalidateTag('hunde-sitemap')
+    revalidateTag('hunde-sitemap', 'max')
   }
 
   return doc

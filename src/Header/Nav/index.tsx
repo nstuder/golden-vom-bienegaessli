@@ -108,7 +108,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
       {/* Burger menu - visible only on mobile */}
       <button
         ref={burgerButtonRef}
-        className="md:hidden text-black focus:outline-none"
+        className="md:hidden text-black focus:outline-hidden"
         onClick={toggleDrawer}
         aria-label="Toggle menu"
       >
@@ -171,7 +171,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
                 <div key={i} className="py-1" ref={(el) => (dropdownRefs.current[i] = el)}>
                   <button
                     onClick={() => toggleDropdown(i)}
-                    className="flex items-center justify-between w-full text-black font-medium focus:outline-none"
+                    className="flex items-center justify-between w-full text-black font-medium focus:outline-hidden"
                     aria-expanded={isOpen}
                     aria-haspopup="true"
                   >
@@ -249,7 +249,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
               <div key={i} className="relative" ref={(el) => (dropdownRefs.current[i] = el)}>
                 <button
                   onClick={() => toggleDropdown(i)}
-                  className="flex items-center gap-1 text-black font-medium hover:underline underline-offset-4 focus:outline-none"
+                  className="flex items-center gap-1 text-black font-medium hover:underline underline-offset-4 focus:outline-hidden"
                   aria-expanded={isOpen}
                   aria-haspopup="true"
                 >

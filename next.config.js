@@ -9,6 +9,10 @@ const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    // Next 16 only allows quality 75 by default; ImageMedia uses 50
+    qualities: [50, 75],
+    // Next 16 blocks optimizing images from private IPs; media is served from localhost in development
+    dangerouslyAllowLocalIP: new URL(NEXT_PUBLIC_SERVER_URL).hostname === 'localhost',
     remotePatterns: [
       {
         protocol: 'https',
@@ -27,11 +31,6 @@ const nextConfig = {
   output: 'standalone',
   reactStrictMode: true,
   redirects,
-  eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
-    ignoreDuringBuilds: true,
-  },
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })

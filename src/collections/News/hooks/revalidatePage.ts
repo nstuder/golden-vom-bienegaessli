@@ -8,7 +8,7 @@ export const revalidatePage: CollectionAfterChangeHook<News> = ({ doc, req: { co
   if (!context.disableRevalidate) {
     if (doc._status === 'published') {
       revalidatePath('/aktuelles')
-      revalidateTag('pages-sitemap')
+      revalidateTag('pages-sitemap', 'max')
     }
   }
   return doc
@@ -17,7 +17,7 @@ export const revalidatePage: CollectionAfterChangeHook<News> = ({ doc, req: { co
 export const revalidateDelete: CollectionAfterDeleteHook<News> = ({ doc, req: { context } }) => {
   if (!context.disableRevalidate) {
     revalidatePath('/aktuelles')
-    revalidateTag('pages-sitemap')
+    revalidateTag('pages-sitemap', 'max')
   }
 
   return doc

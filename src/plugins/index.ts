@@ -23,6 +23,7 @@ const generateURL: GenerateURL<Dog | Page> = ({ doc }) => {
 }
 
 export const plugins: Plugin[] = [
+  // @ts-expect-error - `collections` is typed as required, but omitting it enables import/export for all collections (documented default)
   importExportPlugin({}),
   redirectsPlugin({
     collections: ['pages', 'dogs'],
