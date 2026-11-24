@@ -29,8 +29,6 @@ services:
   bienegaessli-mongo:
     container_name: bienegaessli-mongo
     image: mongo:4
-    ports:
-      - '27017:27017'
     restart: always
     command:
       - --storageEngine=wiredTiger

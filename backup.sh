@@ -27,7 +27,7 @@ MONGO_USERNAME=$(grep -E 'MONGO_USERNAME=' .env | cut -d '=' -f 2- | tr -d '\r')
 MONGO_PASSWORD=$(grep -E 'MONGO_PASSWORD=' .env | cut -d '=' -f 2- | tr -d '\r')
 MONGO_DATABASE=$(grep -E 'MONGO_DATABASE=' .env | cut -d '=' -f 2- | tr -d '\r')
 
-if [ -z "$MONGO_USERNAME" ] || [ -z "$MONGO_PASSWORD" ] || [ -z "$MONGO_DATABASE"]; then
+if [ -z "$MONGO_USERNAME" ] || [ -z "$MONGO_PASSWORD" ] || [ -z "$MONGO_DATABASE" ]; then
     echo "🚨 ERROR: MONGO_USERNAME or MONGO_PASSWORD or MONGO_DATABASE not found or empty in .env. Aborting."
     exit 1
 fi

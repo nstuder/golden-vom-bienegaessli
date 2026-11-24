@@ -19,7 +19,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     fill,
     pictureClassName,
     imgClassName,
-    priority,
+    preload,
     resource,
     size: sizeFromProps,
     src: srcFromProps,
@@ -33,7 +33,13 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
   let blurUrl: string = `/_next/image?url=${src}&w=16&q=1`
 
   if (!src && resource && typeof resource === 'object') {
-    const { alt: altFromResource, height: fullHeight, url, width: fullWidth, blurDataURL } = resource
+    const {
+      alt: altFromResource,
+      height: fullHeight,
+      url,
+      width: fullWidth,
+      blurDataURL,
+    } = resource
 
     width = fullWidth!
     height = fullHeight!
@@ -45,7 +51,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     src = getMediaUrl(url, cacheTag)
   }
 
-  const loading = loadingFromProps || (!priority ? 'lazy' : undefined)
+  const loading = loadingFromProps || (!preload ? 'lazy' : undefined)
 
   // NOTE: this is used by the browser to determine which image to download at different screen sizes
   const sizes = sizeFromProps
@@ -61,7 +67,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         className={cn(imgClassName)}
         fill={fill}
         height={!fill ? height : undefined}
-        priority={priority}
+        preload={preload}
         quality={50}
         loading={loading}
         sizes={sizes}

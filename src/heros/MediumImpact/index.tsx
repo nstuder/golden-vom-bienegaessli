@@ -12,7 +12,7 @@ export const MediumImpactHero: React.FC<Page['hero']> = ({ media }) => {
       </div>*/}
       {media && typeof media === 'object' && (
         <div>
-          <Media className="" imgClassName="w-full" priority resource={media} />
+          <Media className="" imgClassName="w-full" preload resource={media} />
           {media?.caption && (
             <div className="mt-3">
               <RichText data={media.caption} enableGutter={false} />

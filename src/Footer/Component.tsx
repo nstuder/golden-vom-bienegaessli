@@ -15,7 +15,7 @@ export async function Footer() {
             <Media
               pictureClassName="shrink-0 md:w-28 md:h-28 w-16 h-16"
               imgClassName="object-contain h-full w-auto"
-              priority
+              preload
               resource={club.logo}
             />
           </a>

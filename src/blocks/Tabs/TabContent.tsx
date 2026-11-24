@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react'
 
+import type { TabsBlock } from '@/payload-types'
+
 import { ContentBlock as ContentComponent } from '@/blocks/Content/Component'
 import { CarouselBlock } from '@/blocks/Carousel/Component'
 import { GallerieBlock } from '@/blocks/Gallerie/Component'
@@ -17,7 +19,7 @@ const blockComponents = {
 }
 
 export const TabContent: React.FC<{
-  blocks: any[]
+  blocks: NonNullable<TabsBlock['tabs']>[number]['content']
 }> = (props) => {
   const { blocks } = props
 
@@ -30,12 +32,12 @@ export const TabContent: React.FC<{
           const { blockType } = block
 
           if (blockType && blockType in blockComponents) {
-            const Block = blockComponents[blockType]
+            const Block = blockComponents[blockType as keyof typeof blockComponents]
 
             if (Block) {
               return (
                 <div className="my-16" key={index}>
-                  {/* @ts-expect-error there may be some mismatch between the expected types here */}
+                  {/* @ts-expect-error the props of the block union can't be narrowed to the selected component */}
                   <Block {...block} disableInnerContainer />
                 </div>
               )

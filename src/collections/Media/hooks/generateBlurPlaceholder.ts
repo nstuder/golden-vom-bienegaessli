@@ -1,11 +1,7 @@
 import sharp from 'sharp'
 import { CollectionAfterChangeHook } from 'payload'
 
-export const generateBlurPlaceholder: CollectionAfterChangeHook = async ({
-  doc,
-  req,
-  operation,
-}) => {
+export const generateBlurPlaceholder: CollectionAfterChangeHook = async ({ doc, req }) => {
   // Skip non-images and if blur already exists
   if (!doc.filename || !doc.mimeType?.startsWith('image/') || doc.blurDataURL) {
     return doc
@@ -43,19 +39,21 @@ export const generateBlurPlaceholder: CollectionAfterChangeHook = async ({
         await req.payload.update({
           collection: 'media',
           id: doc.id,
-          data: { blurDataURL: base64 } as any,
+          data: { blurDataURL: base64 },
         })
         req.payload.logger.info(`✅ Blur placeholder saved for: ${doc.filename}`)
       } catch (delayedUpdateError) {
         req.payload.logger.error(
-          `❌ Failed to save blur placeholder: ${delayedUpdateError?.message}`,
+          `❌ Failed to save blur placeholder: ${delayedUpdateError instanceof Error ? delayedUpdateError.message : String(delayedUpdateError)}`,
         )
       }
     }, 100)
 
     return doc
   } catch (error) {
-    req.payload.logger.error(`Failed to generate blur placeholder: ${error?.message}`)
+    req.payload.logger.error(
+      `Failed to generate blur placeholder: ${error instanceof Error ? error.message : String(error)}`,
+    )
     return doc
   }
 }

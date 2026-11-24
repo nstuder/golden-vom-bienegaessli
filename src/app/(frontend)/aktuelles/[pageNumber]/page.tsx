@@ -44,7 +44,7 @@ export default async function Page({ params: paramsPromise }: Args) {
       </div>
 
       {/* Render the news posts using the NewsBlock component */}
-      <NewsBlock newsItems={news.docs} />
+      <NewsBlock blockType="news" newsItems={news.docs} />
 
       <div className="container">
         {news.totalPages > 1 && news.page && (

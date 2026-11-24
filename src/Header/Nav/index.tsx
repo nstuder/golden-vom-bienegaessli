@@ -22,6 +22,11 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
     }
   }
 
+  const closeMenus = () => {
+    setIsDrawerOpen(false)
+    setOpenDropdown(null)
+  }
+
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen)
   }
@@ -156,7 +161,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
                     {...item.link.link}
                     appearance="link"
                     className={'text-black block w-full'}
-                    onClick={() => setIsDrawerOpen(false)}
+                    onClick={closeMenus}
                   />
                 </div>
               )
@@ -168,7 +173,13 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
               const isOpen = openDropdown === i
 
               return (
-                <div key={i} className="py-1" ref={(el) => (dropdownRefs.current[i] = el)}>
+                <div
+                  key={i}
+                  className="py-1"
+                  ref={(el) => {
+                    dropdownRefs.current[i] = el
+                  }}
+                >
                   <button
                     onClick={() => toggleDropdown(i)}
                     className="flex items-center justify-between w-full text-black font-medium focus:outline-hidden"
@@ -201,7 +212,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
                             {...linkItem.link}
                             appearance="link"
                             className={'text-black block w-full'}
-                            onNavigate={() => setIsDrawerOpen(false)}
+                            onClick={closeMenus}
                           />
                         </div>
                       ))}
@@ -212,14 +223,14 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
             }
 
             // Fallback for old structure
-            if (!item.type && item.link) {
+            if (!item.type && item.link?.link) {
               return (
                 <div key={i} className="py-1">
                   <CMSLink
-                    {...item.link}
+                    {...item.link.link}
                     appearance="link"
                     className={'text-black block w-full'}
-                    onClick={() => setIsDrawerOpen(false)}
+                    onClick={closeMenus}
                   />
                 </div>
               )
@@ -246,7 +257,13 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
             const isOpen = openDropdown === i
 
             return (
-              <div key={i} className="relative" ref={(el) => (dropdownRefs.current[i] = el)}>
+              <div
+                key={i}
+                className="relative"
+                ref={(el) => {
+                  dropdownRefs.current[i] = el
+                }}
+              >
                 <button
                   onClick={() => toggleDropdown(i)}
                   className="flex items-center gap-1 text-black font-medium hover:underline underline-offset-4 focus:outline-hidden"
@@ -273,7 +290,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
 
                 {isOpen && links && links.length > 0 && (
                   <div
-                    className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10"
+                    className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black/5 z-10"
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby={`dropdown-button-${i}`}
@@ -289,6 +306,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
                             {...linkItem.link}
                             appearance="link"
                             className={'text-black w-full text-left'}
+                            onClick={closeMenus}
                           />
                         </div>
                       ))}
@@ -300,8 +318,10 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
           }
 
           // Fallback for old structure
-          if (!item.type && item.link) {
-            return <CMSLink key={i} {...item.link} appearance="link" className={'text-black'} />
+          if (!item.type && item.link?.link) {
+            return (
+              <CMSLink key={i} {...item.link.link} appearance="link" className={'text-black'} />
+            )
           }
 
           return null

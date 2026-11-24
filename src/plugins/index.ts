@@ -1,11 +1,9 @@
-import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { importExportPlugin } from '@payloadcms/plugin-import-export'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { Plugin } from 'payload'
 import { revalidateRedirects } from '@/hooks/revalidateRedirects'
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
-import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 
 import { Dog, Page } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -23,8 +21,9 @@ const generateURL: GenerateURL<Dog | Page> = ({ doc }) => {
 }
 
 export const plugins: Plugin[] = [
-  // @ts-expect-error - `collections` is typed as required, but omitting it enables import/export for all collections (documented default)
-  importExportPlugin({}),
+  importExportPlugin({
+    collections: [{ slug: 'dogs' }, { slug: 'litters' }, { slug: 'news' }, { slug: 'pages' }],
+  }),
   redirectsPlugin({
     collections: ['pages', 'dogs'],
     overrides: {
@@ -50,31 +49,5 @@ export const plugins: Plugin[] = [
   seoPlugin({
     generateTitle,
     generateURL,
-  }),
-  formBuilderPlugin({
-    fields: {
-      payment: false,
-    },
-    formOverrides: {
-      fields: ({ defaultFields }) => {
-        return defaultFields.map((field) => {
-          if ('name' in field && field.name === 'confirmationMessage') {
-            return {
-              ...field,
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => {
-                  return [
-                    ...rootFeatures,
-                    FixedToolbarFeature(),
-                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                  ]
-                },
-              }),
-            }
-          }
-          return field
-        })
-      },
-    },
   }),
 ]

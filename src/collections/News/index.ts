@@ -30,10 +30,9 @@ export const News: CollectionConfig<'news'> = {
   // Type safe if the collection slug generic is passed to `CollectionConfig` - `CollectionConfig<'news'>
   defaultPopulate: {
     title: true,
-    slug: true,
   },
   admin: {
-    defaultColumns: ['title', 'slug', 'updatedAt'],
+    defaultColumns: ['title', 'date', 'updatedAt'],
     livePreview: {
       url: ({ data, req }) => {
         const path = generatePreviewPath({
