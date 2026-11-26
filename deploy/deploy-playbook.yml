@@ -14,3 +14,15 @@
             project_src: /home/nstuder/bienegaessli
             build: always
         register: output
+
+      - name: Delete old backups (keep the newest 2 of each kind)
+        ansible.builtin.command: bash /home/nstuder/bienegaessli/deploy/cleanup-backups.sh
+        environment:
+            KEEP: '2'
+        register: cleanup
+        changed_when: "'Deleting' in cleanup.stdout"
+
+      - name: Show deleted backups
+        ansible.builtin.debug:
+            var: cleanup.stdout_lines
+        when: cleanup.changed

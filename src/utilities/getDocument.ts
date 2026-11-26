@@ -2,30 +2,18 @@ import type { Config } from '@/payload-types'
 
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import { unstable_cache } from 'next/cache'
 
 type Collection = keyof Config['collections']
 
-async function getDocument(collection: Collection, slug: string, depth = 0) {
+/**
+ * Not cached on purpose: the slug of a document can change at any time
+ */
+export async function getDocumentById(collection: Collection, id: string) {
   const payload = await getPayload({ config: configPromise })
 
-  const page = await payload.find({
-    collection,
-    depth,
-    where: {
-      slug: {
-        equals: slug,
-      },
-    },
-  })
-
-  return page.docs[0]
+  try {
+    return await payload.findByID({ collection, id, depth: 0 })
+  } catch {
+    return null
+  }
 }
-
-/**
- * Returns a unstable_cache function mapped with the cache tag for the slug
- */
-export const getCachedDocument = (collection: Collection, slug: string) =>
-  unstable_cache(async () => getDocument(collection, slug), [collection, slug], {
-    tags: [`${collection}_${slug}`],
-  })

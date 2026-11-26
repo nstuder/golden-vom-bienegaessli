@@ -1,5 +1,6 @@
 import { Button, type ButtonProps } from '@/components/ui/button'
 import { cn } from '@/utilities/ui'
+import { getDocumentPath } from '@/utilities/getDocumentPath'
 import Link from 'next/link'
 import React from 'react'
 
@@ -37,10 +38,8 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   } = props
 
   const href =
-    type === 'reference' && typeof reference?.value === 'object' && reference.value.slug
-      ? `${reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''}/${
-          reference.value.slug
-        }`
+    type === 'reference' && typeof reference?.value === 'object'
+      ? getDocumentPath(reference.relationTo, reference.value.slug)
       : url
 
   if (!href) return null

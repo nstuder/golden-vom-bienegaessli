@@ -13,6 +13,7 @@ import {
 
 import type { MediaBlock as MediaBlockProps } from '@/payload-types'
 import { cn } from '@/utilities/ui'
+import { getDocumentPath } from '@/utilities/getDocumentPath'
 
 type NodeTypes = DefaultNodeTypes | SerializedBlockNode<MediaBlockProps>
 
@@ -21,8 +22,7 @@ const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   if (typeof value !== 'object') {
     throw new Error('Expected value to be an object')
   }
-  const slug = value.slug
-  return relationTo === 'posts' ? `/posts/${slug}` : `/${slug}`
+  return getDocumentPath(relationTo, value.slug as string | undefined) || '#'
 }
 
 const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({

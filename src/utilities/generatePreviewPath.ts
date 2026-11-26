@@ -1,25 +1,23 @@
 import { CollectionSlug, PayloadRequest } from 'payload'
 
-const collectionPrefixMap: Partial<Record<CollectionSlug, string>> = {
-  dogs: '/hunde',
-  pages: '',
-}
+import { getDocumentPath } from '@/utilities/getDocumentPath'
 
 type Props = {
-  collection: keyof typeof collectionPrefixMap
+  collection: CollectionSlug
   slug: string
   req: PayloadRequest
 }
 
 export const generatePreviewPath = ({ collection, slug }: Props) => {
+  // News have no detail page, they are shown on the news overview
+  const path = collection === 'news' ? '/aktuelles' : getDocumentPath(collection, slug) || '/'
+
   const encodedParams = new URLSearchParams({
     slug,
     collection,
-    path: `${collectionPrefixMap[collection]}/${slug}`,
+    path,
     previewSecret: process.env.PREVIEW_SECRET || '',
   })
 
-  const url = `/next/preview?${encodedParams.toString()}`
-
-  return url
+  return `/next/preview?${encodedParams.toString()}`
 }

@@ -65,11 +65,11 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const { totalDocs } = await payload.count({
-    collection: 'dogs',
+    collection: 'news',
     overrideAccess: false,
   })
 
-  const totalPages = Math.ceil(totalDocs / 10)
+  const totalPages = Math.ceil(totalDocs / pageSize)
 
   const pages: { pageNumber: string }[] = []
 
