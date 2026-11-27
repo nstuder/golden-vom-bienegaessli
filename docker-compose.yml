@@ -17,7 +17,7 @@ services:
       - 'traefik.http.routers.bienegaessli.tls=true'
       - 'traefik.http.routers.bienegaessli.tls.certresolver=myresolver'
       - 'traefik.http.middlewares.bienegaessli.compress=true'
-      - 'traefik.http.middlewares.bienegaessli.plugin.httpCache.maxTtl=300'
+      - 'traefik.http.routers.bienegaessli.middlewares=bienegaessli'
     networks:
       - bienegaessli_network
       - traefik
